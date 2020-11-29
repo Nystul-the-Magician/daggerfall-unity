@@ -40,6 +40,10 @@ namespace DaggerfallWorkshop.Game
     /// </summary>
     public class Automap : MonoBehaviour
     {
+        public GameObject prefabRotateArrow;
+        public GameObject prefabPortalEntrance;
+        public GameObject prefabPortalExit;
+
         #region Singleton
         private static Automap _instance;
 
@@ -1485,7 +1489,8 @@ namespace DaggerfallWorkshop.Game
                 //SetMaterialTransparency(material);
                 gameobjectBeaconRotationPivotAxis.GetComponent<MeshRenderer>().material = material;
 
-                gameobjectRotationArrow1 = (GameObject)Instantiate(Resources.Load(ResourceNameRotateArrow));
+                //gameobjectRotationArrow1 = (GameObject)Instantiate(Resources.Load(ResourceNameRotateArrow));
+                gameobjectRotationArrow1 = (GameObject)Instantiate(prefabRotateArrow);
                 gameobjectRotationArrow1.name = NameGameobjectRotateArrow;
                 gameobjectRotationArrow1.transform.SetParent(gameobjectBeaconRotationPivotAxis.transform);
                 gameobjectRotationArrow1.layer = layerAutomap;
@@ -1495,7 +1500,8 @@ namespace DaggerfallWorkshop.Game
                 gameobjectRotationArrow1.transform.localScale = new Vector3(0.15f, 0.0005f, 0.15f);
                 gameobjectRotationArrow1.GetComponentInChildren<MeshRenderer>().material = material;
 
-                gameobjectRotationArrow2 = (GameObject)Instantiate(Resources.Load(ResourceNameRotateArrow));
+                //gameobjectRotationArrow2 = (GameObject)Instantiate(Resources.Load(ResourceNameRotateArrow));
+                gameobjectRotationArrow2 = (GameObject)Instantiate(prefabRotateArrow);
                 gameobjectRotationArrow2.name = NameGameobjectRotateArrow;
                 gameobjectRotationArrow2.transform.SetParent(gameobjectBeaconRotationPivotAxis.transform);
                 gameobjectRotationArrow2.layer = layerAutomap;
@@ -1723,31 +1729,48 @@ namespace DaggerfallWorkshop.Game
             string teleporterEntranceName = NameGameobjectTeleporterSubStringStart + dictkey + NameGameobjectTeleporterEntranceSubStringEnd;
             if (gameobjectTeleporterMarkers.transform.Find(teleporterEntranceName) == null)
             {
-                GameObject gameObjectTeleporterEntrance = new GameObject(teleporterEntranceName);
+                //GameObject gameObjectTeleporterEntrance = Instantiate(Resources.Load("portal_entrance")) as GameObject;
+                GameObject gameObjectTeleporterEntrance = Instantiate(prefabPortalEntrance) as GameObject;
+                gameObjectTeleporterEntrance.name = teleporterEntranceName;
                 gameObjectTeleporterEntrance.transform.SetParent(gameobjectTeleporterMarkers.transform);
                 gameObjectTeleporterEntrance.transform.position = startPoint.position; // + Vector3.up * 1.0f;
                 gameObjectTeleporterEntrance.transform.rotation = startPoint.rotation;
                 gameObjectTeleporterEntrance.transform.Rotate(0.0f, 90.0f, 0.0f);
                 gameObjectTeleporterEntrance.layer = layerAutomap;
 
-                GameObject gameObjectTeleporterEntranceMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                gameObjectTeleporterEntranceMarker.transform.SetParent(gameObjectTeleporterEntrance.transform);
+                GameObject gameObjectTeleporterEntranceMarker = gameObjectTeleporterEntrance.transform.GetChild(0).gameObject;
+                gameObjectTeleporterEntranceMarker.transform.SetParent(gameObjectTeleporterEntranceMarker.transform);
                 gameObjectTeleporterEntranceMarker.name = NameGameobjectTeleporterPortalMarker;
-                Material materialTeleporterEntranceMarker = new Material(Shader.Find("Standard"));
-                materialTeleporterEntranceMarker.color = new Color(0.513f, 0.4f, 1.0f);
-                materialTeleporterEntranceMarker.SetFloat("_Metallic", 0.0f);
-                materialTeleporterEntranceMarker.SetFloat("_Glossiness", 0.0f);
-                gameObjectTeleporterEntranceMarker.GetComponent<MeshRenderer>().material = materialTeleporterEntranceMarker;
                 gameObjectTeleporterEntranceMarker.layer = layerAutomap;
                 gameObjectTeleporterEntranceMarker.transform.localPosition = Vector3.zero;
-                gameObjectTeleporterEntranceMarker.transform.localScale = new Vector3(2.0f, 0.1f, 1.0f);
-                gameObjectTeleporterEntranceMarker.transform.localRotation = Quaternion.Euler(0.0f, 90.0f, 90.0f);
+                gameObjectTeleporterEntranceMarker.transform.localRotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+
+                //GameObject gameObjectTeleporterEntranceMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                //gameObjectTeleporterEntranceMarker.transform.SetParent(gameObjectTeleporterEntrance.transform);
+                //gameObjectTeleporterEntranceMarker.name = NameGameobjectTeleporterPortalMarker;
+                //Material materialTeleporterEntranceMarker = new Material(Shader.Find("Standard"));
+                //materialTeleporterEntranceMarker.color = new Color(0.513f, 0.4f, 1.0f);
+                //materialTeleporterEntranceMarker.SetFloat("_Metallic", 0.0f);
+                //materialTeleporterEntranceMarker.SetFloat("_Glossiness", 0.0f);
+                //gameObjectTeleporterEntranceMarker.GetComponent<MeshRenderer>().material = materialTeleporterEntranceMarker;
+                //gameObjectTeleporterEntranceMarker.layer = layerAutomap;
+                //gameObjectTeleporterEntranceMarker.transform.localPosition = Vector3.zero;
+                //gameObjectTeleporterEntranceMarker.transform.localScale = new Vector3(2.0f, 0.1f, 1.0f);
+                //gameObjectTeleporterEntranceMarker.transform.localRotation = Quaternion.Euler(0.0f, 90.0f, 90.0f);
+
+                //GameObject gameObjectTeleporterEntranceMarker = Instantiate(Resources.Load("portal_entrance")) as GameObject;
+                //gameObjectTeleporterEntranceMarker.transform.SetParent(gameObjectTeleporterEntrance.transform);
+                //gameObjectTeleporterEntranceMarker.name = NameGameobjectTeleporterPortalMarker;
+                //gameObjectTeleporterEntranceMarker.layer = layerAutomap;
+                //gameObjectTeleporterEntranceMarker.transform.localPosition = Vector3.zero;
             }
 
             string teleporterExitName = NameGameobjectTeleporterSubStringStart + dictkey + NameGameobjectTeleporterExitSubStringEnd;
             if (gameobjectTeleporterMarkers.transform.Find(teleporterExitName) == null)
             {
-                GameObject gameObjectTeleporterExit = new GameObject(teleporterExitName);
+                //GameObject gameObjectTeleporterExit = Instantiate(Resources.Load("portal_exit")) as GameObject;
+                GameObject gameObjectTeleporterExit = Instantiate(prefabPortalExit) as GameObject;
+                gameObjectTeleporterExit.name = teleporterExitName;
                 gameObjectTeleporterExit.transform.SetParent(gameobjectTeleporterMarkers.transform);
                 gameObjectTeleporterExit.transform.position = endPoint.position; // + Vector3.up * 0.2f;
                 //gameObjectTeleporterExit.transform.rotation = endPoint.rotation;
@@ -1756,18 +1779,40 @@ namespace DaggerfallWorkshop.Game
                 gameObjectTeleporterExit.transform.Rotate(0.0f, 90.0f, 0.0f);
                 gameObjectTeleporterExit.layer = layerAutomap;
 
-                GameObject gameObjectTeleporterExitMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                GameObject gameObjectTeleporterExitMarker = gameObjectTeleporterExit.transform.GetChild(0).gameObject;
                 gameObjectTeleporterExitMarker.transform.SetParent(gameObjectTeleporterExit.transform);
                 gameObjectTeleporterExitMarker.name = NameGameobjectTeleporterPortalMarker;
-                Material materialTeleporterExitMarker = new Material(Shader.Find("Standard"));
-                materialTeleporterExitMarker.color = new Color(0.355f, 0.279f, 0.7f);
-                materialTeleporterExitMarker.SetFloat("_Metallic", 0.0f);
-                materialTeleporterExitMarker.SetFloat("_Glossiness", 0.0f);
-                gameObjectTeleporterExitMarker.GetComponent<MeshRenderer>().material = materialTeleporterExitMarker;
                 gameObjectTeleporterExitMarker.layer = layerAutomap;
                 gameObjectTeleporterExitMarker.transform.localPosition = Vector3.zero;
-                gameObjectTeleporterExitMarker.transform.localScale = new Vector3(2.0f, 0.1f, 1.0f);
-                gameObjectTeleporterExitMarker.transform.localRotation = Quaternion.Euler(0.0f, 90.0f, 90.0f);
+                gameObjectTeleporterExitMarker.transform.localRotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+
+                //GameObject gameObjectTeleporterExit = new GameObject(teleporterExitName);
+                //gameObjectTeleporterExit.transform.SetParent(gameobjectTeleporterMarkers.transform);
+                //gameObjectTeleporterExit.transform.position = endPoint.position; // + Vector3.up * 0.2f;
+                ////gameObjectTeleporterExit.transform.rotation = endPoint.rotation;
+                ////gameObjectTeleporterExit.transform.Rotate(0.0f, 180.0f, 0.0f);
+                //gameObjectTeleporterExit.transform.rotation = startPoint.rotation; // take rotation from portal entrance
+                //gameObjectTeleporterExit.transform.Rotate(0.0f, 90.0f, 0.0f);
+                //gameObjectTeleporterExit.layer = layerAutomap;
+
+                //GameObject gameObjectTeleporterExitMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                //gameObjectTeleporterExitMarker.transform.SetParent(gameObjectTeleporterExit.transform);
+                //gameObjectTeleporterExitMarker.name = NameGameobjectTeleporterPortalMarker;
+                //Material materialTeleporterExitMarker = new Material(Shader.Find("Standard"));
+                //materialTeleporterExitMarker.color = new Color(0.355f, 0.279f, 0.7f);
+                //materialTeleporterExitMarker.SetFloat("_Metallic", 0.0f);
+                //materialTeleporterExitMarker.SetFloat("_Glossiness", 0.0f);
+                //gameObjectTeleporterExitMarker.GetComponent<MeshRenderer>().material = materialTeleporterExitMarker;
+                //gameObjectTeleporterExitMarker.layer = layerAutomap;
+                //gameObjectTeleporterExitMarker.transform.localPosition = Vector3.zero;
+                //gameObjectTeleporterExitMarker.transform.localScale = new Vector3(2.0f, 0.1f, 1.0f);
+                //gameObjectTeleporterExitMarker.transform.localRotation = Quaternion.Euler(0.0f, 90.0f, 90.0f);
+
+                //GameObject gameObjectTeleporterExitMarker = Instantiate(Resources.Load("portal_exit")) as GameObject;
+                //gameObjectTeleporterExitMarker.transform.SetParent(gameObjectTeleporterExit.transform);
+                //gameObjectTeleporterExitMarker.name = NameGameobjectTeleporterPortalMarker;
+                //gameObjectTeleporterExitMarker.layer = layerAutomap;
+                //gameObjectTeleporterExitMarker.transform.localPosition = Vector3.zero;
             }
         }
 
@@ -1843,30 +1888,9 @@ namespace DaggerfallWorkshop.Game
                 return;
             }
 
-            DFLocation location = currentLocation.Value;
-            int originX, originY, sizeX, sizeY;
-            {
-                const int sizeMin = 7;
-
-                int blockXMin = 1000;
-                int blockXMax = -1000;
-                int blockZMin = 1000;
-                int blockZMax = -1000;
-                foreach (DFLocation.DungeonBlock block in location.Dungeon.Blocks)
-                {
-                    if (block.X < blockXMin) blockXMin = block.X;
-                    if (block.X > blockXMax) blockXMax = block.X;
-                    if (block.Z < blockZMin) blockZMin = block.Z;
-                    if (block.Z > blockZMax) blockZMax = block.Z;
-                }
-                originX = -blockXMin + 1;
-                originY = -blockZMin + 1;
-                sizeX = sizeY = Math.Max(sizeMin, Math.Max(blockXMax + 1 + originX, blockZMax + 1 + originY));
-            }
-
             int microMapBlockSizeInPixels = 2;
-            int width = sizeX * microMapBlockSizeInPixels;
-            int height = sizeY * microMapBlockSizeInPixels;
+            int width = 9 * microMapBlockSizeInPixels;
+            int height = 9 * microMapBlockSizeInPixels;
             textureMicroMap = new Texture2D(width, height, TextureFormat.ARGB32, false);
             textureMicroMap.filterMode = FilterMode.Point;
 
@@ -1875,6 +1899,9 @@ namespace DaggerfallWorkshop.Game
                 colors[i] = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             textureMicroMap.SetPixels(0, 0, width, height, colors);
 
+            const int originX = 5;
+            const int originY = 5;
+            DFLocation location = currentLocation.Value;
             foreach (DFLocation.DungeonBlock block in location.Dungeon.Blocks)
             {
                 int xBlockPos = originX + block.X;
