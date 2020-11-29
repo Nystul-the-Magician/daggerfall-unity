@@ -2242,6 +2242,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a1801474a7dae4599734df630cd5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabRotateArrow: {fileID: 1969688713317816, guid: b62b143d5db797e4aad869104bb245fb,
+    type: 3}
+  prefabPortalEntrance: {fileID: 3718524630870669922, guid: 09ae95d7e52466842b0cb45b44e4684e,
+    type: 3}
+  prefabPortalExit: {fileID: 2705873969533237164, guid: 9ac80105419775d44923c33b8ea92d54,
+    type: 3}
 --- !u!4 &1844948392
 Transform:
   m_ObjectHideFlags: 0
