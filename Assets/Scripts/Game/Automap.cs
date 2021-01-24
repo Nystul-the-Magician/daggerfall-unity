@@ -146,8 +146,6 @@ namespace DaggerfallWorkshop.Game
 
         #region Fields
 
-        const string ResourceNameRotateArrow = "RotateArrow";
-
         const string NameGamobjectBeacons = "Beacons";
 
         const string NameGameobjectPlayerMarkerArrow = "PlayerMarkerArrow";
