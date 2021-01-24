@@ -2252,7 +2252,9 @@ MonoBehaviour:
     type: 3}
   prefabPortalEntrance: {fileID: 3718524630870669922, guid: 09ae95d7e52466842b0cb45b44e4684e,
     type: 3}
-  prefabPortalExit: {fileID: 2705873969533237164, guid: 9ac80105419775d44923c33b8ea92d54,
+  prefabPortalExit: {fileID: 1939516616741837637, guid: 9ac80105419775d44923c33b8ea92d54,
+    type: 3}
+  prefabUserMarker: {fileID: 6697485632141810090, guid: bd32725cbdcbbdf44a7fb087d1092a56,
     type: 3}
 --- !u!4 &1844948392
 Transform:

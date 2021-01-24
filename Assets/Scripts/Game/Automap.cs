@@ -43,6 +43,7 @@ namespace DaggerfallWorkshop.Game
         public GameObject prefabRotateArrow;
         public GameObject prefabPortalEntrance;
         public GameObject prefabPortalExit;
+        public GameObject prefabUserMarker;
 
         #region Singleton
         private static Automap _instance;
@@ -766,7 +767,7 @@ namespace DaggerfallWorkshop.Game
                 if (!nearestHit.Value.transform.name.StartsWith(NameGameobjectUserNoteMarkerSubStringStart))
                 {
                     // add a new user note marker
-                    Vector3 spawningPosition = (nearestHit.Value.point) + nearestHit.Value.normal * 0.7f;
+                    Vector3 spawningPosition = (nearestHit.Value.point);
 
                     // test if there is already a user note marker near to the requested spawning position
                     var enumerator = listUserNoteMarkers.GetEnumerator();
@@ -1675,20 +1676,22 @@ namespace DaggerfallWorkshop.Game
         private GameObject CreateUserMarker(int id, Vector3 spawningPosition)
         {
             if (gameObjectUserNoteMarkers == null)
-            {
+            {                
                 gameObjectUserNoteMarkers = new GameObject(NameGameobjectUserMarkerNotes);
                 gameObjectUserNoteMarkers.transform.SetParent(gameobjectAutomap.transform);
                 gameObjectUserNoteMarkers.layer = layerAutomap;
             }
-            GameObject gameObjectUserNoteMarker = CreateDiamondShapePrimitive();
+            GameObject gameObjectUserNoteMarker = Instantiate(prefabUserMarker) as GameObject;
+            //GameObject gameObjectUserNoteMarker = CreateDiamondShapePrimitive();
             gameObjectUserNoteMarker.transform.SetParent(gameObjectUserNoteMarkers.transform);
             gameObjectUserNoteMarker.transform.position = spawningPosition;
             gameObjectUserNoteMarker.name = NameGameobjectUserNoteMarkerSubStringStart + id;
-            Material materialUserNoteMarker = new Material(Shader.Find("Standard"));
-            materialUserNoteMarker.color = new Color(1.0f, 0.55f, 0.0f);
-            gameObjectUserNoteMarker.GetComponent<MeshRenderer>().material = materialUserNoteMarker;
-            gameObjectUserNoteMarker.layer = layerAutomap;
-            gameObjectUserNoteMarker.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+            //Material materialUserNoteMarker = new Material(Shader.Find("Standard"));
+            //materialUserNoteMarker.color = new Color(1.0f, 0.55f, 0.0f);
+            //gameObjectUserNoteMarker.GetComponent<MeshRenderer>().material = materialUserNoteMarker;
+            //gameObjectUserNoteMarker.layer = layerAutomap;
+            //gameObjectUserNoteMarker.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+            SetLayerRecursively(gameObjectUserNoteMarker, layerAutomap);
             return gameObjectUserNoteMarker;
         }
 
