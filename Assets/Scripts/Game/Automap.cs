@@ -2397,7 +2397,7 @@ namespace DaggerfallWorkshop.Game
             DestroyTeleporterMarkers();
         }
 
-        void UpdateMeshRendererDungeonState(ref MeshRenderer meshRenderer, AutomapDungeonState automapDungeonState, int indexBlock, int indexElement, int indexModel, bool forceNotVisitedInThisRun)
+        void UpdateMeshRendererDungeonState(MeshRenderer meshRenderer, AutomapDungeonState automapDungeonState, int indexBlock, int indexElement, int indexModel, bool forceNotVisitedInThisRun)
         {
             if (automapDungeonState.blocks[indexBlock].blockElements[indexElement].models[indexModel].discovered == true)
             {
@@ -2481,15 +2481,14 @@ namespace DaggerfallWorkshop.Game
                     {
                         Transform currentTransformModel = currentTransformElement.GetChild(indexModel);
 
-						MeshRenderer[] meshRenderers = currentTransformModel.GetComponentsInChildren<MeshRenderer>();
-						foreach (MeshRenderer meshRendererIteration in meshRenderers)
-						{
-							if (meshRendererIteration)
-							{
-								MeshRenderer meshRenderer = meshRendererIteration;
-								UpdateMeshRendererDungeonState(ref meshRenderer, automapDungeonState, indexBlock, indexElement, indexModel, forceNotVisitedInThisRun);
-							}
-						}
+                        MeshRenderer[] meshRenderers = currentTransformModel.GetComponentsInChildren<MeshRenderer>();
+                        foreach (MeshRenderer meshRenderer in meshRenderers)
+                        {
+                            if (meshRenderer)
+                            {
+                                UpdateMeshRendererDungeonState(meshRenderer, automapDungeonState, indexBlock, indexElement, indexModel, forceNotVisitedInThisRun);
+                            }
+                        }
                     }
                 }
             }
