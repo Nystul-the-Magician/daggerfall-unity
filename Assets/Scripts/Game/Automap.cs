@@ -2481,11 +2481,15 @@ namespace DaggerfallWorkshop.Game
                     {
                         Transform currentTransformModel = currentTransformElement.GetChild(indexModel);
 
-                        MeshRenderer meshRenderer = currentTransformModel.GetComponent<MeshRenderer>();
-                        if (meshRenderer)
-                        {
-                            UpdateMeshRendererDungeonState(ref meshRenderer, automapDungeonState, indexBlock, indexElement, indexModel, forceNotVisitedInThisRun);
-                        }
+						MeshRenderer[] meshRenderers = currentTransformModel.GetComponentsInChildren<MeshRenderer>();
+						foreach (MeshRenderer meshRendererIteration in meshRenderers)
+						{
+							if (meshRendererIteration)
+							{
+								MeshRenderer meshRenderer = meshRendererIteration;
+								UpdateMeshRendererDungeonState(ref meshRenderer, automapDungeonState, indexBlock, indexElement, indexModel, forceNotVisitedInThisRun);
+							}
+						}
                     }
                 }
             }
